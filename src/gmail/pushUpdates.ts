@@ -12,8 +12,6 @@ const jsonBodyParser = bodyParser.json();
 const authClient = new OAuth2Client();
 export const router = Express.Router();
 
-exports.router.post(process.env.GAPPS_PUSH_PATH, jsonBodyParser, async (req, res) => {
-
     const message = Buffer.from(req.body.message.data, "base64").toString("utf-8");
     const obj = JSON.parse(message);
     // const emailAddress = (mongoSanitize.sanitize(obj.emailAddress) as string)
@@ -103,7 +101,7 @@ router.get(process.env.UPDATE_PUB_SUB_TOPIC_PATH, async (_req, res) => {
     if (!Array.isArray(users)) {
         res.status(204).send();
         return;
-    }
+        
     for (const user of users) {
         const obj = await authorizeUser(user.telegramID);
         const tgId = user.telegramID.toString();
