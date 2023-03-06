@@ -122,7 +122,7 @@ router.get(process.env.UPDATE_PUB_SUB_TOPIC_PATH, async (_req, res) => {
         }
     }
     res.status(204).send();
-});
+};
 
 
 const emailHistoryIdMapKey = "emailHistoryIdMap";
