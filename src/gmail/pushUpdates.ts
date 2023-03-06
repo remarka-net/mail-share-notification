@@ -12,7 +12,7 @@ const jsonBodyParser = bodyParser.json();
 const authClient = new OAuth2Client();
 export const router = Express.Router();
 
-router.post(process.env.GAPPS_PUSH_PATH, jsonBodyParser, async (req, res) => {
+async function run(req, res) => {
 
     const message = Buffer.from(req.body.message.data, "base64").toString("utf-8");
     const obj = JSON.parse(message);
@@ -122,7 +122,7 @@ router.get(process.env.UPDATE_PUB_SUB_TOPIC_PATH, async (_req, res) => {
         }
     }
     res.status(204).send();
-});
+};
 
 
 const emailHistoryIdMapKey = "emailHistoryIdMap";
