@@ -12,7 +12,7 @@ const jsonBodyParser = bodyParser.json();
 const authClient = new OAuth2Client();
 export const router = Express.Router();
 
-async function run(req, res) => {
+async function run(req, res) {
 
     const message = Buffer.from(req.body.message.data, "base64").toString("utf-8");
     const obj = JSON.parse(message);
