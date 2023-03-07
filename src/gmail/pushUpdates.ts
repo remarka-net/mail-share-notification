@@ -18,7 +18,7 @@ router.post(process.env.GAPPS_PUSH_PATH, jsonBodyParser, async (req, res) => {
         const [, token] = bearer.match(/Bearer (.*)/);
         await authClient.verifyIdToken({
             idToken: token,
-            requiredAudience: process.env.SERVER_PATH.replace(/https?:\/\/|\//g, ""),
+            audience: '698370668367-b26h6944r3u57e1s1ks1eq9ipi09rhl3.apps.googleusercontent.com',
         });
     } catch (e) {
         error(e);
