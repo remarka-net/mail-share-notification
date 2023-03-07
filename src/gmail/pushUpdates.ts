@@ -12,8 +12,8 @@ const jsonBodyParser = bodyParser.json();
 const authClient = new OAuth2Client();
 export const router = Express.Router();
 
-async function run(req, res) {
-
+router.post(process.env.GAPPS_PUSH_PATH, jsonBodyParser, async (req, res) => {
+    
     const message = Buffer.from(req.body.message.data, "base64").toString("utf-8");
     const obj = JSON.parse(message);
     // const emailAddress = (mongoSanitize.sanitize(obj.emailAddress) as string)
@@ -96,14 +96,14 @@ async function run(req, res) {
     }
     res.status(204).send();
     cleanGmailHistoryIdMap(app);
-};
+});
 
 router.get(process.env.UPDATE_PUB_SUB_TOPIC_PATH, async (_req, res) => {
     const users = await FindAll();
     if (!Array.isArray(users)) {
         res.status(204).send();
         return;
-        
+    }
     for (const user of users) {
         const obj = await authorizeUser(user.telegramID);
         const tgId = user.telegramID.toString();
@@ -122,7 +122,7 @@ router.get(process.env.UPDATE_PUB_SUB_TOPIC_PATH, async (_req, res) => {
         }
     }
     res.status(204).send();
-};
+});
 
 
 const emailHistoryIdMapKey = "emailHistoryIdMap";
@@ -150,6 +150,4 @@ function cleanGmailHistoryIdMap(app: Application) {
             keysToDelete.forEach(x => map.delete(x[0]));
         }
     }
-}
-}
 }
